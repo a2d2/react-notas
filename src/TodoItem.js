@@ -1,11 +1,11 @@
-import React from "react";
+import react from "react";
 
 function TodoItem(props) {
   return (
     <li>
-      <span>
-        <p>{props.text}</p>
-      </span>
+      <span>C</span>
+      <p>{props.text}</p>
+      <span>X</span>
     </li>
   );
 }
