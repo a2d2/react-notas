@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App(props) {
+  //props que viene de index.js
   return (
     <div className="App">
       <header className="App-header">
@@ -15,7 +16,7 @@ function App(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn {props.saludo}
+          Learn {props.saludo} //props que viene de index.js
         </a>
       </header>
     </div>
