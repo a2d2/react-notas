@@ -1,5 +1,10 @@
-//import "./App.css";
 import React from "react";
+import { TodoCounter } from "./TodoCounter";
+import { TodoSearch } from "./TodoSearch";
+import { TodoList } from "./TodoList";
+import { TodoItem } from "./TodoItem";
+import { CreateTodoButton } from "./CreateTodoButton";
+//import "./App.css";
 
 const todos = [
   { text: "tarea 1", completed: "false" },
@@ -10,17 +15,14 @@ function App() {
   //props que viene de index.js es usado en linea 19
   return (
     <React.Fragment>
-      {/*<TodoCounter />*/}
-      <h2> Has complentado 2 de 3 ToDos</h2>
-      {/*<TodoSearch />*/}
-      <input placeholder="Cebolla" />
-      {/*<TodoList>
+      <TodoCounter />
+      <TodoSearch />
+      <TodoList>
         {todos.map((todo) => (
-          <TodoItem />
+          <TodoItem key={todo.text} text={todo.text} />
         ))}
-      </TodoList>*/}
-      {/*<CreateTodoButton />*/}
-      <button>+</button>
+      </TodoList>
+      <CreateTodoButton />
     </React.Fragment>
   );
 }
