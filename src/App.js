@@ -9,8 +9,9 @@ import { CreateTodoButton } from "./CreateTodoButton";
 const todos = [
   { text: "tarea 1", completed: "false" },
   { text: "tarea 2", completed: "false" },
-  { text: "tarea 3", completed: "false" },
+  { text: "tarea 3", completed: "true" },
 ];
+
 function App() {
   //props que viene de index.js es usado en linea 19
   return (
@@ -19,7 +20,11 @@ function App() {
       <TodoSearch />
       <TodoList>
         {todos.map((todo) => (
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+          />
         ))}
       </TodoList>
       <CreateTodoButton />
