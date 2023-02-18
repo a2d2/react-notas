@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App(props) {
-  //props que viene de index.js
+  //props que viene de index.js es usado en linea 19
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +16,7 @@ function App(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn {props.saludo} //props que viene de index.js
+          Learn {props.saludo}
         </a>
       </header>
     </div>
