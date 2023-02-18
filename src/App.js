@@ -16,7 +16,7 @@ function App(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn {props.saludo}
+          Learn {props.children}
         </a>
       </header>
     </div>

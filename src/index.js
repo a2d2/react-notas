@@ -7,7 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App saludo="hola" />
+    <App saludo="hola">
+      hola es un propiedad (prop) que viaja como children en App.js podria ser
+      una etiqueta HTML como a continuacion
+      <h1>este es children</h1>
+    </App>
   </React.StrictMode>
 );
 
