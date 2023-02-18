@@ -1,25 +1,27 @@
-import logo from "./logo.svg";
-import "./App.css";
+//import "./App.css";
+import React from "react";
 
-function App(props) {
+const todos = [
+  { text: "tarea 1", completed: "false" },
+  { text: "tarea 2", completed: "false" },
+  { text: "tarea 3", completed: "false" },
+];
+function App() {
   //props que viene de index.js es usado en linea 19
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn {props.children}
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      {/*<TodoCounter />*/}
+      <h2> Has complentado 2 de 3 ToDos</h2>
+      {/*<TodoSearch />*/}
+      <input placeholder="Cebolla" />
+      {/*<TodoList>
+        {todos.map((todo) => (
+          <TodoItem />
+        ))}
+      </TodoList>*/}
+      {/*<CreateTodoButton />*/}
+      <button>+</button>
+    </React.Fragment>
   );
 }
 
