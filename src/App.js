@@ -44,11 +44,11 @@ function App() {
     //   text: todos[todoIndex].text,
     //   completed: true,
     // };
-    //clonamos el listado de todos
+    //clonamos el listado de todos porque para realizar el cambio con setTodos se requiere tenerlo
     const newTodos = [...todos];
     //el todo que corresponde con el text recibido en esta funcion sera colocada su proiedad completed como true
     newTodos[todoIndex].completed = true;
-    //marcamos nuestro listado de todos para poder renderizar con el procedimiento setTodos
+    //actualizamos nuestro listado de todos para poder re-renderizar con el procedimiento setTodos
     setTodos(newTodos);
   };
 
