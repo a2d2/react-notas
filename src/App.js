@@ -38,7 +38,7 @@ function App() {
   }
 
   const completeTodo = (text) => {
-    //buscamos en nuestro listado de todos el indice en el arreglo para el texto que coincida con el parametro text que recibe la funciono.
+    //buscamos en nuestro listado de todos el indice en el arreglo para el texto (tod especifico) que coincida con el parametro text que recibe la funciono.
     const todoIndex = todos.findIndex((todo) => todo.text === text);
     // todos[todoIndex] = {
     //   text: todos[todoIndex].text,
