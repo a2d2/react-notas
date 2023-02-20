@@ -7,8 +7,8 @@ import { CreateTodoButton } from "./CreateTodoButton";
 // import './App.css';
 
 const defaultTodos = [
-  { text: "Cortar cebolla", completed: true },
-  { text: "Tomar el cursso de intro a React", completed: true },
+  { text: "Cortar cebolla", completed: false },
+  { text: "Tomar el cursso de intro a React", completed: false },
   { text: "Llorar con la llorona", completed: false },
   { text: "LALALALAA", completed: true },
 ];
@@ -16,7 +16,7 @@ const defaultTodos = [
 function App() {
   const [todos, setTodos] = React.useState(defaultTodos);
   const [searchValue, setSearchValue] = React.useState("");
-  //todos es un arreglo que inicialmente mostrara defaultTodos de arriba. Estamos filtrando para veer cuales de los todos tienen la propiedad completed como true y del nuevo array guardamos la propiedad lenght para saber cuantos elementos tiene por dentro el array. Es semejante para totalTodos pero para saber el total de todos que hay.
+  //todos es un arreglo que inicialmente mostrara defaultTodos de arriba. Estamos filtrando para ver cuales de los todos tienen la propiedad completed como true y del nuevo array guardamos la propiedad lenght para saber cuantos elementos tiene por dentro el array. Es semejante para totalTodos pero para saber el total de todos que hay.
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
   //searchedTodos es el array que permite ir filtrando cada que se escribe una letra en el buscador los todos que tienen esa secuencia de letras escritas ahi.
@@ -37,6 +37,30 @@ function App() {
     });
   }
 
+  const completeTodo = (text) => {
+    //buscamos en nuestro listado de todos el indice en el arreglo para el texto que coincida con el parametro text que recibe la funciono.
+    const todoIndex = todos.findIndex((todo) => todo.text === text);
+    // todos[todoIndex] = {
+    //   text: todos[todoIndex].text,
+    //   completed: true,
+    // };
+    //clonamos el listado de todos
+    const newTodos = [...todos];
+    //el todo que corresponde con el text recibido en esta funcion sera colocada su proiedad completed como true
+    newTodos[todoIndex].completed = true;
+    //marcamos nuestro listado de todos para poder renderizar con el procedimiento setTodos
+    setTodos(newTodos);
+  };
+
+  //similar a la funcion anterior pero para borrar todos
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex((todo) => todo.text === text);
+    const newTodos = [...todos];
+    //corta solo un todo
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  };
+
   return (
     <React.Fragment>
       {/* Cada cambio de las variables totalTodos y completedTodos se envia a nuestro componente TodoCounter */}
@@ -46,11 +70,14 @@ function App() {
 
       <TodoList>
         {/* se filtran solo los todos buscados en el searchbox que es lo que el arreglo searchedTodo hizo lineas arriba. Cuando los usuarios no escriban nada vamos a mostrar todos los todos pero si escriben algo solo mostramos los searchedTodos */}
+        {/* se envia el texto del todo a la funcion completeTodos  en la funcion onComplete a continuacion*/}
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)}
+            onDelete={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
