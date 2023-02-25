@@ -1,20 +1,27 @@
 import React from "react";
-import { TodoCounter } from "./TodoCounter";
-import { TodoSearch } from "./TodoSearch";
-import { TodoList } from "./TodoList";
-import { TodoItem } from "./TodoItem";
-import { CreateTodoButton } from "./CreateTodoButton";
+import { AppUI } from "./AppUI";
 // import './App.css';
 
-const defaultTodos = [
-  { text: "Cortar cebolla", completed: false },
-  { text: "Tomar el cursso de intro a React", completed: false },
-  { text: "Llorar con la llorona", completed: false },
-  { text: "LALALALAA", completed: true },
-];
+// const defaultTodos = [
+//   { text: "Cortar cebolla", completed: false },
+//   { text: "Tomar el cursso de intro a React", completed: false },
+//   { text: "Llorar con la llorona", completed: false },
+//   { text: "LALALALAA", completed: true },
+// ];
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const localStorageTodos = localStorage.getItem("TODOS_V1");
+  let parsedTodos;
+
+  if (!localStorageTodos) {
+    // Si no hay TODOS creados por el usuario
+    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setSearchValue] = React.useState("");
   //todos es un arreglo que inicialmente mostrara defaultTodos de arriba. Estamos filtrando para ver cuales de los todos tienen la propiedad completed como true y del nuevo array guardamos la propiedad lenght para saber cuantos elementos tiene por dentro el array. Es semejante para totalTodos pero para saber el total de todos que hay.
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
@@ -37,6 +44,16 @@ function App() {
     });
   }
 
+  // Creamos la función en la que actualizaremos nuestro localStorage
+  const saveTodos = (newTodos) => {
+    // Convertimos a string nuestros TODOs
+    const stringifiedTodos = JSON.stringify(newTodos);
+    // Los guardamos en el localStorage
+    localStorage.setItem("TODOS_V1", stringifiedTodos);
+    // Actualizamos nuestro estado.  Cada que el usuario interactúe con nuestra aplicación se guardarán los TODOs con nuestra nueva función
+    saveTodos(newTodos);
+  };
+
   const completeTodo = (text) => {
     //buscamos en nuestro listado de todos el indice en el arreglo para el texto que coincida con el parametro text que recibe la funciono.
     const todoIndex = todos.findIndex((todo) => todo.text === text);
@@ -48,8 +65,8 @@ function App() {
     const newTodos = [...todos];
     //el todo que corresponde con el text recibido en esta funcion sera colocada su proiedad completed como true
     newTodos[todoIndex].completed = true;
-    //marcamos nuestro listado de todos para poder renderizar con el procedimiento setTodos
-    setTodos(newTodos);
+    //marcamos nuestro listado de todos para poder renderizar con el procedimiento setTodos. Cada que el usuario interactúe con nuestra aplicación se guardarán los TODOs con nuestra nueva función
+    saveTodos(newTodos);
   };
 
   //similar a la funcion anterior pero para borrar todos
@@ -62,28 +79,15 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      {/* Cada cambio de las variables totalTodos y completedTodos se envia a nuestro componente TodoCounter */}
-      <TodoCounter total={totalTodos} completed={completedTodos} />
-      {/*searchValue es el valor y setSearchvalue es la funcion para actualizar ese valor**/}
-      <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-
-      <TodoList>
-        {/* se filtran solo los todos buscados en el searchbox que es lo que el arreglo searchedTodo hizo lineas arriba. Cuando los usuarios no escriban nada vamos a mostrar todos los todos pero si escriben algo solo mostramos los searchedTodos */}
-        {/* se envia el texto del todo a la funcion completeTodos  en la funcion onComplete a continuacion*/}
-        {searchedTodos.map((todo) => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
-          />
-        ))}
-      </TodoList>
-
-      <CreateTodoButton />
-    </React.Fragment>
+    <AppUI
+      totalTodos={totalTodos}
+      completedTodos={completedTodos}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      searchedTodos={searchedTodos}
+      completeTodo={completeTodo}
+      deleteTodo={deleteTodo}
+    />
   );
 }
 
